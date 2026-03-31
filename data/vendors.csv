@@ -1,0 +1,13 @@
+vendor_id,vendor_name,category,brand_tier,city_support,preferred_vendor,after_sales_rating,reliability_rating
+V001,Philips,Lighting,Premium,"Mumbai,Delhi,Pune",TRUE,4.2,4.5
+V002,Daikin,Air Quality,Premium,"Delhi,Gurgaon,Noida",TRUE,4.0,4.3
+V003,Honeywell,Automation,Standard,"Bangalore,Chennai,Hyderabad",FALSE,3.8,4.1
+V004,Eureka Forbes Aquaguard,Water,Premium,"Chennai,Bangalore,Kochi",TRUE,4.1,4.2
+V005,Wipro,Lighting,Premium,"Pune,Mumbai,Nashik",TRUE,4.6,4.7
+V006,Carrier,Air Quality,Standard,"Hyderabad,Pune,Mumbai",FALSE,3.9,4.0
+V007,Siemens,Automation,Premium,"Gurgaon,Delhi,Faridabad",TRUE,4.2,4.4
+V008,Kent RO Systems,Water,Standard,"Kolkata,Bhubaneswar,Guwahati",FALSE,3.7,3.9
+V009,Havells,Lighting,Budget,"Ahmedabad,Surat,Vadodara",FALSE,3.5,3.8
+V010,Hitachi,Air Quality,Premium,"Jaipur,Jodhpur,Udaipur",TRUE,4.3,4.5
+V011,Dynalite,Automation,Premium,"Chennai,Bangalore,Hyderabad",TRUE,4.1,4.3
+V012,Alfaa UV Commercial Purifiers,Water,Premium,"Mumbai,Pune,Delhi",TRUE,4.0,4.2

@@ -1,0 +1,24 @@
+product_id,vendor_id,product_name,category,subcategory,spec_1,spec_2,spec_3,warranty_years,lead_time_days
+P001,V001,Circadian LED Panel,Lighting,Panel,CCT: 3000-6500K,CRI: >90,45W Power,5,21
+P002,V001,Tunable White Downlight,Lighting,Downlight,CCT: 2700-5000K,CRI: >95,24W Power,3,14
+P003,V002,HEPA Air Purifier,Air Quality,Purifier,HEPA H13 Filter,CADR: 350 m³/h,Noise: <35dB,2,30
+P004,V002,UV-C Disinfection Unit,Air Quality,Disinfection,UV-C 254nm,Coverage: 200 sqft,28W Power,3,25
+P005,V003,Smart HVAC Controller,Automation,HVAC,WiFi + BACnet,AI Learning,25% Energy Savings,5,45
+P006,V003,Occupancy Sensor Network,Automation,Sensors,Zigbee 3.0,PIR+Ultrasonic,95% Accuracy,4,35
+P007,V004,Multi-Stage Filter System,Water,Filtration,5-stage Process,Flow: 5000 L/day,99.8% Removal,2,40
+P008,V004,Smart Water Monitor,Water,Monitoring,TDS + pH + Chlorine,IoT Enabled,Real-time Data,3,20
+P009,V005,Human-Centric LED Strip,Lighting,Strip,Melanopic Optimized,IP65 Rating,18W/m Power,4,18
+P010,V005,Daylight Harvesting Sensor,Lighting,Sensor,0-100k lux Range,Wireless Mesh,Auto Control,5,28
+P011,V006,CO2 Monitoring System,Air Quality,Monitoring,NDIR Sensor,0-5000ppm Range,±30ppm Accuracy,3,32
+P012,V006,VOC Detection Panel,Air Quality,Detection,PID Sensor,0-20ppm Range,±5% Accuracy,2,35
+P013,V007,Building Management System,Automation,BMS,Web-based UI,Multi-protocol,30% Savings,7,60
+P014,V007,Smart Blinds Controller,Automation,Controls,Solar Tracking,Weather Integration,40% Glare Reduction,5,42
+P015,V008,Legionella Prevention System,Water,Prevention,Thermal Shock,Auto Scheduling,99.9% Kill Rate,5,50
+P016,V009,Smart LED Bulbs,Lighting,Bulb,Tunable White,Smart Controls,12W Power,3,15
+P017,V009,Track Lighting System,Lighting,Track,360° Rotation,Dimmer Compatible,25W Power,4,20
+P018,V010,Split AC Unit,Air Quality,HVAC,5 Star Rating,Dual Inverter,1.5 Ton Capacity,5,35
+P019,V010,Air Purifier Pro,Air Quality,Purifier,7-stage Filtration,Smart Sensors,65W Power,3,28
+P020,V011,Lighting Control System,Automation,Control,DyNet Protocol,Scene Management,Wireless,7,45
+P021,V011,Dimmer Module,Automation,Dimmer,Leading Edge,1000W Load,C-Bus Compatible,5,30
+P022,V012,UV Sterilizer Commercial,Water,Sterilization,UV-C Technology,High Flow Rate,99.99% Kill,5,40
+P023,V012,Water Treatment Plant,Water,Treatment,Multi-barrier,Commercial Grade,5000 LPH,7,60

@@ -1,0 +1,24 @@
+usage_id,project_name,city,project_type,certification,vendor_id,product_id,qty,total_value,delivery_status,issue_flag
+U001,TechCorp HQ,Mumbai,Office,WELL Gold,V001,P001,25,95000,On-time,FALSE
+U002,GreenBuilding Mall,Delhi,Retail,LEED Platinum,V002,P003,8,224000,Delayed,TRUE
+U003,EcoVillage Residences,Bangalore,Residential,WELL Silver,V003,P005,5,122500,Delayed,TRUE
+U004,AquaPark Resort,Chennai,Hospitality,WELL Gold,V004,P007,3,216000,On-time,FALSE
+U005,SmartSchool Campus,Pune,Education,LEED Gold,V005,P009,150,397500,On-time,FALSE
+U006,HealthCare Center,Hyderabad,Healthcare,WELL Platinum,V006,P011,12,153600,Delayed,TRUE
+U007,Innovation Hub,Gurgaon,Office,LEED Platinum,V007,P013,2,196000,Delayed,TRUE
+U008,Luxury Apartments,Kolkata,Residential,WELL Gold,V008,P015,4,328000,Delayed,TRUE
+U009,Corporate Tower,Ahmedabad,Office,LEED Gold,V001,P002,80,192000,On-time,FALSE
+U010,Wellness Resort,Jaipur,Hospitality,WELL Platinum,V002,P004,15,232500,On-time,FALSE
+U011,TechCorp Branch,Mumbai,Office,WELL Gold,V001,P001,15,57000,On-time,FALSE
+U012,Green Mall Phase 2,Delhi,Retail,LEED Platinum,V002,P003,5,140000,On-time,FALSE
+U013,Smart Office Complex,Bangalore,Office,WELL Silver,V003,P006,20,96000,Delayed,TRUE
+U014,Resort Expansion,Chennai,Hospitality,WELL Gold,V004,P008,8,81600,On-time,FALSE
+U015,University Library,Pune,Education,LEED Gold,V005,P010,25,180000,On-time,FALSE
+U016,Modern Office Space,Surat,Office,LEED Silver,V009,P016,50,19000,On-time,FALSE
+U017,Retail Showroom,Vadodara,Retail,WELL Silver,V009,P017,12,28200,On-time,FALSE
+U018,Corporate Headquarters,Jaipur,Office,WELL Gold,V010,P018,3,115500,On-time,FALSE
+U019,Medical Center,Udaipur,Healthcare,WELL Platinum,V010,P019,6,126000,On-time,FALSE
+U020,Smart Building Complex,Chennai,Office,WELL Gold,V011,P020,2,57000,On-time,FALSE
+U021,Commercial Tower,Bangalore,Office,LEED Platinum,V011,P021,35,34300,On-time,FALSE
+U022,Industrial Facility,Mumbai,Industrial,LEED Gold,V012,P022,8,440000,On-time,FALSE
+U023,Water Treatment Plant,Pune,Infrastructure,WELL Commercial,V012,P023,2,310000,On-time,FALSE

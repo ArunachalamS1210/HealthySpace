@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Intelligence Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <a href="/well-dashboard" style="color: white; text-decoration: none; background: rgba(255, 255, 255, 0.2); padding: 8px 16px; border-radius: 4px; font-weight: 500; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'" onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'">
+                    ← Back to Dashboard
+                </a>
+                <div></div>
+            </div>
+            <h1>🏢 Vendor Intelligence System</h1>
+            <p>Smart vendor selection for wellness & biophilic consulting projects</p>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="category-filter">Category</label>
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="Lighting">Lighting</option>
+                        <option value="Air Quality">Air Quality</option>
+                        <option value="Automation">Automation</option>
+                        <option value="Water">Water</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="city-filter">City</label>
+                    <select id="city-filter">
+                        <option value="">All Cities</option>
+                        <!-- Will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="project-type-filter">Project Type</label>
+                    <select id="project-type-filter">
+                        <option value="">All Types</option>
+                        <!-- Will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="certification-filter">Certification</label>
+                    <select id="certification-filter">
+                        <option value="">All Certifications</option>
+                        <!-- Will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="preferred-vendor-filter">Preferred Vendor</label>
+                    <select id="preferred-vendor-filter">
+                        <option value="">All Vendors</option>
+                        <option value="true">Preferred Only</option>
+                        <option value="false">Non-Preferred Only</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <button class="apply-filters-btn" onclick="applyFilters()">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-section">
+            <div class="kpi-cards">
+                <div class="kpi-card">
+                    <div class="kpi-value" id="avg-price">₹0</div>
+                    <div class="kpi-label">Avg Negotiated Price</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="avg-lead-time">0</div>
+                    <div class="kpi-label">Avg Lead Time (Days)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="avg-vendor-score">0.0</div>
+                    <div class="kpi-label">Avg Vendor Score</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="avg-credit-period">0</div>
+                    <div class="kpi-label">Avg Credit Period (Days)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="repeat-usage">0%</div>
+                    <div class="kpi-label">Repeat Vendor Usage</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="avg-lighting-cost">₹0.00</div>
+                    <div class="kpi-label">Avg Lighting Cost/sq ft</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="avg-lpd">0.0</div>
+                    <div class="kpi-label">Avg LPD (W/ft²)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Main Panel -->
+            <div class="main-panel">
+                <!-- Vendor Comparison Matrix -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Vendor Comparison Matrix</h2>
+                            <p class="panel-subtitle">Compare vendors side-by-side on key metrics</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Vendor Selection -->
+                    <div class="vendor-select" id="vendor-select">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                    
+                    <!-- Comparison Table -->
+                    <div id="comparison-table-container">
+                        <table class="comparison-table" id="comparison-table">
+                            <thead>
+                                <tr id="comparison-header">
+                                    <th>Metrics</th>
+                                    <!-- Vendor columns will be added dynamically -->
+                                </tr>
+                            </thead>
+                            <tbody id="comparison-body">
+                                <!-- Comparison rows will be added dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Historical Trends Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Historical Usage Trends</h2>
+                            <p class="panel-subtitle">Project usage frequency by vendor</p>
+                        </div>
+                    </div>
+                    <div class="historical-chart-container">
+                        <canvas id="historical-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Side Panel -->
+            <div class="side-panel">
+                <!-- Cost & Commercial Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Cost Breakdown</h2>
+                            <p class="panel-subtitle">Compare cost components</p>
+                        </div>
+                    </div>
+                    <div class="cost-chart-container">
+                        <canvas id="cost-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Performance & Risk Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Vendor Performance</h2>
+                            <p class="panel-subtitle">Score comparison across dimensions</p>
+                        </div>
+                    </div>
+                    <div class="performance-chart-container">
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Insights Panel -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Smart Insights</h2>
+                            <p class="panel-subtitle">AI-powered recommendations</p>
+                        </div>
+                    </div>
+                    <div class="insights-list" id="insights-list">
+                        <!-- Insights will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard JavaScript -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.title }} - Project Details</title>
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Chart.js for progress visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Project Detail Page Styling - Based on Working Ayul Dashboard */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Header Styling */
+        .professional-header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+        }
+        
+        .professional-header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.25rem;
+        }
+        
+        .professional-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        /* Button Styling */
+        .professional-button {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .professional-button:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Panel Styling */
+        .professional-panel {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .professional-panel h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .professional-panel h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+        
+        .professional-panel p {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+        
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        
+        @media (min-width: 768px) {
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Status Indicators */
+        .status-on-track {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-at-risk {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-delayed {
+            background: linear-gradient(135deg, #ef4444, #f87171);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Progress Bars */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            height: 1.5rem;
+            overflow: hidden;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.6s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .progress-green {
+            background: linear-gradient(90deg, #10b981, #34d399);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .progress-amber {
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        
+        .progress-red {
+            background: linear-gradient(90deg, #ef4444, #f87171);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+        
+        /* Utility Classes */
+        .flex {
+            display: flex;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .items-start {
+            align-items: flex-start;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .space-x-2 > * + * {
+            margin-left: 0.5rem;
+        }
+        
+        .space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+        
+        .space-x-6 > * + * {
+            margin-left: 1.5rem;
+        }
+        
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+        
+        .text-right { text-align: right; }
+        
+        .border-l {
+            border-left-width: 1px;
+            border-left-style: solid;
+            border-left-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .border-l-4 {
+            border-left-width: 4px !important;
+            border-left-style: solid;
+        }
+        
+        .pl-6 {
+            padding-left: 1.5rem;
+        }
+        
+        .icon-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(4px);
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Color classes for icons */
+        .text-green-400 { color: #4ade80; }
+        .text-blue-300 { color: #93c5fd; }
+        .text-amber-400 { color: #fbbf24; }
+        .text-red-400 { color: #f87171; }
+        
+        /* Chart container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Professional Header -->
+    <div class="container">
+        <header class="professional-header">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-6">
+                    <a href="/well-dashboard" class="professional-button">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="/project-management" class="professional-button">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to Projects</span>
+                    </a>
+                    <div class="border-l pl-6">
+                        <h1>{{ project.title }}</h1>
+                        <p>{{ project.client }} | Project Details</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="{{ project.status_class }}">
+                        {% if project.status == 'On Track' %}
+                            <i class="fas fa-check-circle"></i>
+                        {% elif project.status == 'At Risk' %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                        {% else %}
+                            <i class="fas fa-times-circle"></i>
+                        {% endif %}
+                        {{ project.status }}
+                    </span>
+                    <div class="icon-container">
+                        <i class="fas fa-project-diagram text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Project Overview -->
+        <section class="fade-in">
+            <div class="grid grid-cols-1 grid-cols-2">
+                
+                <!-- Project Information -->
+                <div class="professional-panel">
+                    <h2>Project Information</h2>
+                    <div>
+                        <div class="detail-item">
+                            <span class="detail-label">Current Stage</span>
+                            <span class="detail-value">{{ project.stage }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Start Date</span>
+                            <span class="detail-value">{{ project.start_date }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Due Date</span>
+                            <span class="detail-value">{{ project.due_date }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Client</span>
+                            <span class="detail-value">{{ project.client }}</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="mb-2" style="margin-top: 1.5rem;">Project Description</h3>
+                    <p>{{ project.description }}</p>
+                </div>
+                
+                <!-- Progress Overview -->
+                <div class="professional-panel">
+                    <h2>Progress Overview</h2>
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xl font-semibold">Overall Progress</span>
+                            <span class="text-3xl font-bold">{{ project.progress }}%</span>
+                        </div>
+                        <div class="progress-container">
+                            {% if project.progress >= 70 %}
+                                <div class="progress-bar progress-green" style="width: {{ project.progress }}%;">
+                                    {{ project.progress }}% Complete
+                                </div>
+                            {% elif project.progress >= 40 %}
+                                <div class="progress-bar progress-amber" style="width: {{ project.progress }}%;">
+                                    {{ project.progress }}% Complete
+                                </div>
+                            {% else %}
+                                <div class="progress-bar progress-red" style="width: {{ project.progress }}%;">
+                                    {{ project.progress }}% Complete
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Breakdown -->
+                    <h3 class="mb-4">Phase Breakdown</h3>
+                    <div class="grid grid-cols-1">
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-lightbulb text-green-400" style="margin-right: 0.5rem;"></i>
+                                Planning
+                            </span>
+                            <span class="detail-value">✓ Complete</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-drafting-compass text-blue-300" style="margin-right: 0.5rem;"></i>
+                                Design
+                            </span>
+                            <span class="detail-value">
+                                {% if project.progress >= 30 %}✓ Complete{% else %}In Progress{% endif %}
+                            </span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-hammer text-amber-400" style="margin-right: 0.5rem;"></i>
+                                Implementation
+                            </span>
+                            <span class="detail-value">
+                                {% if project.progress >= 60 %}In Progress{% else %}Pending{% endif %}
+                            </span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-check-double text-green-400" style="margin-right: 0.5rem;"></i>
+                                Review & Testing
+                            </span>
+                            <span class="detail-value">
+                                {% if project.progress >= 80 %}In Progress{% else %}Pending{% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Additional Project Sections -->
+        <section class="fade-in">
+            <div class="grid grid-cols-1 grid-cols-3">
+                
+                <!-- Key Metrics -->
+                <div class="professional-panel">
+                    <h2>Key Metrics</h2>
+                    <div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-dollar-sign text-green-400" style="margin-right: 0.5rem;"></i>
+                                Budget Utilization
+                            </span>
+                            <span class="detail-value">{{ project.progress - 5 }}%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-users text-blue-300" style="margin-right: 0.5rem;"></i>
+                                Team Members
+                            </span>
+                            <span class="detail-value">5 Active</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-tasks text-amber-400" style="margin-right: 0.5rem;"></i>
+                                Completed Tasks
+                            </span>
+                            <span class="detail-value">{{ (project.progress / 10) | round | int }} / {{ ((100 / 10) | round | int) }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team & Resources -->
+                <div class="professional-panel">
+                    <h2>Team & Resources</h2>
+                    <div>
+                        <div class="detail-item">
+                            <span class="detail-label">Project Manager</span>
+                            <span class="detail-value">Sarah Chen</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Lead Designer</span>
+                            <span class="detail-value">Michael Rodriguez</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Consultant</span>
+                            <span class="detail-value">Dr. Lisa Thompson</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Client Contact</span>
+                            <span class="detail-value">Alex Peterson</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="professional-panel">
+                    <h2>Recent Activity</h2>
+                    <div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-file-alt text-blue-300" style="margin-right: 0.5rem;"></i>
+                                Design Review
+                            </span>
+                            <span class="detail-value text-sm">2 days ago</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-comments text-green-400" style="margin-right: 0.5rem;"></i>
+                                Client Meeting
+                            </span>
+                            <span class="detail-value text-sm">1 week ago</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-upload text-amber-400" style="margin-right: 0.5rem;"></i>
+                                Document Upload
+                            </span>
+                            <span class="detail-value text-sm">1 week ago</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-calendar text-blue-300" style="margin-right: 0.5rem;"></i>
+                                Milestone Review
+                            </span>
+                            <span class="detail-value text-sm">2 weeks ago</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Initialize timestamp and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add staggered animation to panels
+            const panels = document.querySelectorAll('.professional-panel');
+            panels.forEach((panel, index) => {
+                panel.style.animationDelay = `${index * 150}ms`;
+            });
+            
+            console.log('Project detail page loaded for project {{ project.id }}');
+        });
+    </script>
+</body>
+</html>

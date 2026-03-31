@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management - Ayul Dashboard</title>
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* Complete CSS Reset and Base Styles - Based on Working Ayul Dashboard */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Header Styling */
+        .professional-header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+        }
+        
+        .professional-header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.25rem;
+        }
+        
+        .professional-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        /* Button Styling */
+        .professional-button {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .professional-button:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Panel Styling */
+        .professional-panel {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+        
+        .professional-panel h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.5rem;
+        }
+        
+        .professional-panel p {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        
+        @media (min-width: 768px) {
+            .grid-cols-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Project Card Styling */
+        .project-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+        }
+        
+        .project-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.25rem;
+        }
+        
+        .project-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+        
+        /* Status Indicators */
+        .status-on-track {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        
+        .status-at-risk {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        
+        .status-delayed {
+            background: linear-gradient(135deg, #ef4444, #f87171);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        
+        /* Progress Bars */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 9999px;
+            height: 0.75rem;
+            overflow: hidden;
+            margin-top: 0.75rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.6s ease;
+            position: relative;
+        }
+        
+        .progress-green {
+            background: linear-gradient(90deg, #10b981, #34d399);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .progress-amber {
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        
+        .progress-red {
+            background: linear-gradient(90deg, #ef4444, #f87171);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        }
+        
+        /* Utility Classes */
+        .flex {
+            display: flex;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .items-start {
+            align-items: flex-start;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .space-x-2 > * + * {
+            margin-left: 0.5rem;
+        }
+        
+        .space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+        
+        .space-x-6 > * + * {
+            margin-left: 1.5rem;
+        }
+        
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        
+        .text-sm { font-size: 0.875rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+        
+        .text-right { text-align: right; }
+        
+        .border-l {
+            border-left-width: 1px;
+            border-left-style: solid;
+            border-left-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .border-l-4 {
+            border-left-width: 4px !important;
+            border-left-style: solid;
+        }
+        
+        .pl-6 {
+            padding-left: 1.5rem;
+        }
+        
+        .icon-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(4px);
+        }
+        
+        .project-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .project-stats span {
+            font-weight: 500;
+        }
+        
+        .stage-badge {
+            color: #4ade80;
+            font-weight: 600;
+        }
+        
+        .progress-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        
+        /* Color classes for icons */
+        .text-green-400 { color: #4ade80; }
+        .text-blue-300 { color: #93c5fd; }
+        
+        /* Hover animations */
+        .project-card, .professional-button, .professional-panel {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Professional Header -->
+    <div class="container">
+        <header class="professional-header">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-6">
+                    <a href="/well-dashboard" class="professional-button">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to Dashboard</span>
+                    </a>
+                    <div class="border-l pl-6">
+                        <h1>Project Management Dashboard</h1>
+                        <p>BPP Wellness & Biophilic Consulting Venture</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-lg font-bold">3 Active Projects</p>
+                        <p class="text-sm" style="color: rgba(255, 255, 255, 0.8);">Last updated: <span id="last-updated">Just now</span></p>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fas fa-project-diagram text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Professional Project Portfolio Overview -->
+        <section class="mb-8">
+            <div class="professional-panel mb-6">
+                <h2>Active Projects Portfolio</h2>
+                <p>Click on any project to view detailed information and analytics</p>
+            </div>
+            
+            <div class="grid grid-cols-1 grid-cols-2 grid-cols-3">
+                
+                <!-- Project Card 1 -->
+                <div class="project-card border-l-4" style="border-left-color: #10b981;" data-project="1">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3>Corporate Wellness Center</h3>
+                            <p>TechCorp Industries</p>
+                        </div>
+                        <span class="status-on-track">
+                            <i class="fas fa-check-circle"></i>
+                            On Track
+                        </span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="project-stats">
+                            <span>Current Stage</span>
+                            <span class="stage-badge">Integration</span>
+                        </div>
+                        <div class="project-stats">
+                            <span>Progress</span>
+                            <span class="progress-text">78%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar progress-green" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between text-sm" style="color: rgba(255, 255, 255, 0.8);">
+                        <span><i class="fas fa-calendar text-blue-300" style="margin-right: 0.5rem;"></i>Started: Jan 15, 2024</span>
+                        <span><i class="fas fa-clock text-blue-300" style="margin-right: 0.5rem;"></i>Due: Apr 30, 2024</span>
+                    </div>
+                </div>
+                
+                <!-- Project Card 2 -->
+                <div class="project-card border-l-4" style="border-left-color: #f59e0b;" data-project="2">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3>WELL Gold Certification</h3>
+                            <p>Green Valley Residences</p>
+                        </div>
+                        <span class="status-at-risk">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            At Risk
+                        </span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="project-stats">
+                            <span>Current Stage</span>
+                            <span class="stage-badge">Assessment</span>
+                        </div>
+                        <div class="project-stats">
+                            <span>Progress</span>
+                            <span class="progress-text">45%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar progress-amber" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between text-sm" style="color: rgba(255, 255, 255, 0.8);">
+                        <span><i class="fas fa-calendar text-blue-300" style="margin-right: 0.5rem;"></i>Started: Feb 1, 2024</span>
+                        <span><i class="fas fa-clock text-blue-300" style="margin-right: 0.5rem;"></i>Due: Jun 15, 2024</span>
+                    </div>
+                </div>
+                
+                <!-- Project Card 3 -->
+                <div class="project-card border-l-4" style="border-left-color: #ef4444;" data-project="3">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3>Biophilic Office Design</h3>
+                            <p>Innovation Hub</p>
+                        </div>
+                        <span class="status-delayed">
+                            <i class="fas fa-times-circle"></i>
+                            Delayed
+                        </span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="project-stats">
+                            <span>Current Stage</span>
+                            <span class="stage-badge">Planning</span>
+                        </div>
+                        <div class="project-stats">
+                            <span>Progress</span>
+                            <span class="progress-text">25%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar progress-red" style="width: 25%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between text-sm" style="color: rgba(255, 255, 255, 0.8);">
+                        <span><i class="fas fa-calendar text-blue-300" style="margin-right: 0.5rem;"></i>Started: Mar 10, 2024</span>
+                        <span><i class="fas fa-clock text-blue-300" style="margin-right: 0.5rem;"></i>Due: Aug 30, 2024</span>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Update timestamp
+        document.getElementById('last-updated').textContent = new Date().toLocaleString();
+        
+        // Add click handlers for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const projectId = this.getAttribute('data-project');
+                console.log('Navigating to project:', projectId);
+                // Redirect to project detail page
+                window.location.href = `/project/${projectId}`;
+            });
+        });
+    </script>
+</body>
+</html>
